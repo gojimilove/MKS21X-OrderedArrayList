@@ -1,4 +1,4 @@
-public class OrderedArrayList extends NoNullArrayList {
+public class OrderedArrayList<T extends Comparable<T>> extends NoNullArrayList<T> {
   public OrderedArrayList() {
     super();
   }
@@ -8,15 +8,24 @@ public class OrderedArrayList extends NoNullArrayList {
   }
 
   public T set(int index, T x) {
+  	if (x == null) throw new IllegalArgumentException("cannot add a null value");
+  	T old = get(index);
   	remove(index);
-  	return add(x);
+  	add(x);
+  	return old;
   }
 
   public boolean add(T x) {
-  	
+  	if (x == null) throw new IllegalArgumentException("cannot add a null value");
+  	int newIndex = 0;
+  	for (int i = 0; i < size(); i++) {
+  		if (x.compareTo(get(i)) >= 0) newIndex = i + 1;
+  	}
+  	super.add(newIndex, x);
+  	return true;
   }
 
   public void add(int index, T x) {
-  	return add(x);
+  	add(x);
   }
 }
