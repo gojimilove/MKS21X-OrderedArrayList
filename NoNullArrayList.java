@@ -1,19 +1,27 @@
-import java.util.ArrayListThis;
+import java.util.ArrayList;
 
-public class NoNullArrayList extends ArrayListThis {
-  private String[] data;
-  private int size;
-
+public class NoNullArrayList<T> extends ArrayList<T> {
   public NoNullArrayList() {
-    data = new String[10];
+    super();
   }
 
-  public NoNullArrayList(startingCapacity) {
-    data = new String[startingCapacity];
+  public NoNullArrayList(int startingCapacity) {
+    super(startingCapacity);
   }
 
-  public String set(int index, String x) {
+  public T set(int index, T x) {
+  	if (x == null) throw new IllegalArgumentException("cannot set a value as null");
+  	return super.set(index, x);
+  }
 
+	public boolean add(T x) {
+  	if (x == null) throw new IllegalArgumentException("cannot add a null value");
+  	return super.add(x);
+  }
+
+  public void add(int index, T x) {
+  	if (x == null) throw new IllegalArgumentException("cannot add a null value");
+  	super.add(index, x);
   }
 
 }
